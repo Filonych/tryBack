@@ -1,8 +1,14 @@
 const express = require("express");
 const mongoose = require('mongoose');
+const todosRoutes = require('./routes/todosRoutes')
+
 require("dotenv").config();
 
+
 const app = express();
+
+app.use(express.json())
+app.use('/api/todos', todosRoutes)
 
 const PORT = process.env.PORT || 3001;
 
