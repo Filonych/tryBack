@@ -20,7 +20,7 @@ function App() {
 
   return <div className="App">
     <h1>Мои задачи</h1>
-    <TodoList todoList={todoList}/>
+    <TodoList todoList={todoList} updateTodoList={updateTodoList}/>
     <br />
     <AddTodoItem updateTodoList={updateTodoList} />
   </div>;

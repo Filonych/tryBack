@@ -1,14 +1,38 @@
-export const TodoList = ({ todoList }) => {
+export const TodoList = ({ todoList, updateTodoList }) => {
+  const deleteTodo = async (title) => {
+    console.log(title);
 
-    return (
-        <>
-            {
-                !todoList.length && <>Loading...</>
-            }
-            {
-                todoList.map((todo) => <div key={todo._id}>{todo.title}
-                <div>Удалить</div></div>
-                )
-            }
-        </>
-    )}
+    try {
+        const res = await fetch('http://localhost:3002/api/todos/delete', {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({title})
+        })
+        
+        if (res.status !== 200) {
+            const json = res.json()
+            alert(json.message)
+            return
+        }
+        updateTodoList()
+    
+    } catch (e) {
+        console.log(e)
+    }
+  };
+
+  return (
+    <>
+      {!todoList.length && <>Loading...</>}
+      {todoList.map((todo) => (
+        <div key={todo._id}>
+          {todo.title} &nbsp;
+          <span onClick={() => deleteTodo(todo.title)}>Удалить</span>
+        </div>
+      ))}
+    </>
+  );
+};
