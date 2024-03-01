@@ -3,16 +3,10 @@ const TodosModel = require("../models/TodosModel");
 class TodosController {
   async getTodos(req, res) {
     try {
-        TodosModel.find({}, "title", (error, result) => {
-            if (error) {
-                res.status(400).json({ message: error })
-            }
-            
-            res.status(200).json({ todos: result })
-        })
-        
-    } catch (e) {
-      res.status(400).json({ message: "Произошла ошибка при получении" });
+        const result = await TodosModel.find({}, "title");
+        res.status(200).json({ todos: result });
+    } catch (error) {
+        res.status(400).json({ message: "Произошла ошибка при получении" });
     }
   }
 
@@ -35,12 +29,14 @@ class TodosController {
     try {
         if(!req.body.title) {
             res.status(400).json({ message: "Пожалуйста, укажите заголовок" }) 
+            return
         }
 
         const { deletedCount } = await TodosModel.deleteOne({ title: req.body.title })
 
         if (deletedCount === 0) {
             res.status(400).json({ message: "Удаление не произошло, пожалуйста, проверьте заголовок" });
+            return
         }
         res.status(200).json({ message: "Элемент успешно удален" });
 
