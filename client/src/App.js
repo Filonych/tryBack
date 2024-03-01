@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useCallback, useEffect, useState } from "react"
+import { useGetTodoList } from "./hooks/useGetTodoList";
+import { TodoList } from "./components/TodoList";
+import { AddTodoItem } from "./components/AddTodoItem";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  
+  const [todoList, setTodoList] = useState([])
+
+  const getTodoList = useGetTodoList()
+
+  const updateTodoList = useCallback(() => {
+    getTodoList().then((result) => setTodoList(result.todos))
+  }, [getTodoList])
+
+  useEffect(() => {
+    updateTodoList()
+  }, [updateTodoList])
+
+  return <div className="App">
+    <h1>Мои задачи</h1>
+    <TodoList todoList={todoList}/>
+    <br />
+    <AddTodoItem updateTodoList={updateTodoList} />
+  </div>;
 }
 
 export default App;
