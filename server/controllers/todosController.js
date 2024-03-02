@@ -37,11 +37,9 @@ class TodosController {
       });
 
       if (deletedCount === 0) {
-        res
-          .status(400)
-          .json({
-            message: "Удаление не произошло, пожалуйста, проверьте заголовок",
-          });
+        res.status(400).json({
+          message: "Удаление не произошло, пожалуйста, проверьте заголовок",
+        });
         return;
       }
       res.status(200).json({ message: "Элемент успешно удален" });

@@ -15,10 +15,10 @@ export const AddTodoItem = ({ updateTodoList }) => {
       const body = { title };
       await fetchData(url, method, body);
 
-      updateTodoList();
-
       if (error) {
         alert(error);
+      } else {
+        updateTodoList();
       }
     } catch (e) {
       console.log(e);
@@ -30,7 +30,7 @@ export const AddTodoItem = ({ updateTodoList }) => {
       <input
         type="text"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e) => setTitle((prev) => e.target.value)}
       />
       <br />
       <br />

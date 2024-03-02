@@ -10,10 +10,10 @@ export const TodoList = ({ todoList, updateTodoList, setSelectedItem }) => {
       const body = { title };
       await fetchData(url, method, body);
 
-      updateTodoList();
-
       if (error) {
         alert(error);
+      } else {
+        updateTodoList();
       }
     } catch (e) {
       console.log(e);

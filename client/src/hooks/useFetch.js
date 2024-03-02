@@ -14,16 +14,16 @@ export const useFetch = () => {
         body: JSON.stringify(body),
       });
 
-      setError(null);
-
       if (res.status !== 200) {
         const json = await res.json();
         setError(json.message);
         return;
       }
     } catch (e) {
-      setError(error.message);
+      console.log(e);
     }
+
+    setError(null);
   };
 
   return { fetchData, error };

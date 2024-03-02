@@ -15,10 +15,11 @@ export const EditTodoItem = ({
       const method = "PUT";
       await fetchData(url, method, selectedItem);
 
-      updateTodoList();
-
       if (error) {
         alert(error);
+      } else {
+        updateTodoList();
+        setSelectedItem({});
       }
     } catch (e) {
       console.log(e);
