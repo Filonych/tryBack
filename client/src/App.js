@@ -28,7 +28,7 @@ function App() {
         setSelectedItem={setSelectedItem}
       />
       <br />
-      
+
       <h1>Добавить задачу</h1>
       <AddTodoItem updateTodoList={updateTodoList} />
       <br />
