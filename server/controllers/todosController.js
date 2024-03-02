@@ -53,7 +53,7 @@ class TodosController {
   async editTodo(req, res) {
     try {
       const updatedTodo = await TodosModel.findByIdAndUpdate(
-        req.body.title,
+        req.body._id,
         { title: req.body.title },
         { new: true }
       );

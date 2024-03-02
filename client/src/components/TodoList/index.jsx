@@ -1,6 +1,5 @@
-export const TodoList = ({ todoList, updateTodoList }) => {
+export const TodoList = ({ todoList, updateTodoList, setTitle, setSelectedItem }) => {
   const deleteTodo = async (title) => {
-    console.log(title);
 
     try {
         const res = await fetch('http://localhost:3002/api/todos/delete', {
@@ -31,6 +30,7 @@ export const TodoList = ({ todoList, updateTodoList }) => {
         <div key={todo._id}>
           {todo.title} &nbsp;
           <span onClick={() => deleteTodo(todo.title)}>Удалить</span>
+          <span onClick={() => setSelectedItem(todo)}>Редактировать</span>
         </div>
       ))}
     </>
