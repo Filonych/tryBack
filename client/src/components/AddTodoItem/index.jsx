@@ -33,6 +33,6 @@ export const AddTodoItem = ({ updateTodoList }) => {
             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
             <br />
             <br />
-            <button type="submit">Отправить</button>
+            <button type="submit">Добавить</button>
         </form>
     )}
