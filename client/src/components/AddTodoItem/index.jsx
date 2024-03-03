@@ -17,9 +17,9 @@ export const AddTodoItem = ({ updateTodoList }) => {
 
       if (error) {
         alert(error);
-      } else {
-        updateTodoList();
+        return;
       }
+      updateTodoList();
     } catch (e) {
       console.log(e);
     }

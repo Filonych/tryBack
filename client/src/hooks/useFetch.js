@@ -24,7 +24,7 @@ export const useFetch = () => {
     }
 
     setError(null);
-  };
+  };  
 
   return { fetchData, error };
 };

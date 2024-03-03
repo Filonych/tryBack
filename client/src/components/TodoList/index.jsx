@@ -15,6 +15,7 @@ export const TodoList = ({ todoList, updateTodoList, setSelectedItem }) => {
       } else {
         updateTodoList();
       }
+      
     } catch (e) {
       console.log(e);
     }
