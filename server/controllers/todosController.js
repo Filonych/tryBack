@@ -14,6 +14,7 @@ class TodosController {
     try {
       if (!req.body.title) {
         res.status(400).json({ message: "Пожалуйста, добавьте заголовок" });
+        return;
       }
 
       const TodoModel = new TodosModel({ title: req.body.title });
@@ -54,7 +55,7 @@ class TodosController {
         res.status(400).json({ message: "Пожалуйста, укажите заголовок" });
         return;
       }
-      
+
       const updatedTodo = await TodosModel.findByIdAndUpdate(
         req.body._id,
         { title: req.body.title },
