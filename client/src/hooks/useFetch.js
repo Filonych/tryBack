@@ -1,8 +1,4 @@
-import { useState } from "react";
-
 export const useFetch = () => {
-  const [error, setError] = useState(null);
-
   const fetchData = async (url, method, body) => {
     try {
       const res = await fetch(url, {
@@ -14,17 +10,16 @@ export const useFetch = () => {
         body: JSON.stringify(body),
       });
 
-      if (res.status !== 200) {
-        const json = await res.json();
-        setError(json.message);
-        return;
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message);
       }
-    } catch (e) {
-      console.log(e);
+
+      return await res.json();
+    } catch (error) {
+      throw new Error(error.message);
     }
+  };
 
-    setError(null);
-  };  
-
-  return { fetchData, error };
+  return { fetchData };
 };

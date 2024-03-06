@@ -15,13 +15,9 @@ export const AddTodoItem = ({ updateTodoList }) => {
       const body = { title };
       await fetchData(url, method, body);
 
-      if (error) {
-        alert(error);
-        return;
-      }
       updateTodoList();
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      alert(error.message);
     }
   };
 
