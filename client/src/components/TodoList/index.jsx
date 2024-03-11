@@ -1,7 +1,8 @@
 import { useFetch } from "../../hooks/useFetch";
+import { Button } from "../ui/Button";
 
 export const TodoList = ({ todoList, updateTodoList, setSelectedItem }) => {
-  const { fetchData, error } = useFetch();
+  const fetchData = useFetch();
 
   const deleteTodo = async (title) => {
     try {
@@ -12,7 +13,7 @@ export const TodoList = ({ todoList, updateTodoList, setSelectedItem }) => {
 
       updateTodoList();
     } catch (error) {
-      alert(error.message);
+      console.log(error.message);
     }
   };
 
@@ -22,18 +23,16 @@ export const TodoList = ({ todoList, updateTodoList, setSelectedItem }) => {
       {todoList.map((todo) => (
         <div key={todo._id}>
           {todo.title} &nbsp;
-          <span
-            style={{ marginRight: "15px", cursor: "pointer" }}
+          <Button
             onClick={() => deleteTodo(todo.title)}
           >
             Удалить
-          </span>
-          <span
-            style={{ cursor: "pointer" }}
+          </Button>
+          <Button
             onClick={() => setSelectedItem(todo)}
           >
             Редактировать
-          </span>
+          </Button>
         </div>
       ))}
     </>

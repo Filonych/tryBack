@@ -68,9 +68,11 @@ class TodosController {
           .json({ message: "Произошла ошибка при редактировании" });
       }
 
+      const allTodos = await TodosModel.find();
+
       res
         .status(200)
-        .json({ todo: updatedTodo, message: "Элемент успешно отредактирован" });
+        .json({ todos: allTodos, message: "Элемент успешно отредактирован" });
     } catch (e) {
       res.status(400).json({ message: "Произошла ошибка при редактировании" });
     }

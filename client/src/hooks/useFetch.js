@@ -1,5 +1,5 @@
 export const useFetch = () => {
-  const fetchData = async (url, method, body) => {
+  return async (url, method, body) => {
     try {
       const res = await fetch(url, {
         method,
@@ -17,9 +17,7 @@ export const useFetch = () => {
 
       return await res.json();
     } catch (error) {
-      throw new Error(error.message);
+      return { error: error.message };
     }
   };
-
-  return { fetchData };
 };

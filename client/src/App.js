@@ -37,6 +37,7 @@ function App() {
         selectedItem={selectedItem}
         setSelectedItem={setSelectedItem}
         updateTodoList={updateTodoList}
+        setTodoList={setTodoList}
       />
     </div>
   );

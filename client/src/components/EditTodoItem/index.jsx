@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { useFetch } from "../../hooks/useFetch";
+import { Error } from "../ui/Error";
 
 export const EditTodoItem = ({
   selectedItem,
   setSelectedItem,
-  updateTodoList,
+  setTodoList,
 }) => {
-  const { fetchData, error } = useFetch();
+  const [error, setError] = useState(null);
+  const fetchData = useFetch();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -13,12 +16,17 @@ export const EditTodoItem = ({
     try {
       const url = "http://localhost:3002/api/todos/edit";
       const method = "PUT";
-      await fetchData(url, method, selectedItem);
+      const response = await fetchData(url, method, selectedItem);
 
-      updateTodoList();
-      setSelectedItem({});
+      if (response.error) {
+        setError(response.error);
+      } else {
+        setError(null);
+        setTodoList(response.todos);
+        setSelectedItem({});
+      }
     } catch (error) {
-      alert(error.message);
+      console.log(error.message);
     }
   };
 
@@ -35,6 +43,7 @@ export const EditTodoItem = ({
           }))
         }
       />
+      {error && <Error>{error}</Error>}
       <br />
       <br />
       <button type="submit">Редактировать</button>
