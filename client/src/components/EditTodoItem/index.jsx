@@ -6,12 +6,27 @@ export const EditTodoItem = ({
   selectedItem,
   setSelectedItem,
   setTodoList,
+  selectedTitle,
 }) => {
   const [error, setError] = useState(null);
+  const [value, setValue] = useState(null);
   const fetchData = useFetch();
+
+  const onHandleChange = (e) => {
+    setSelectedItem((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+    setValue(e.target.value);
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    if (value === selectedTitle || value === null) {
+      setError("Измените заголовок");
+      return;
+    }
 
     try {
       const url = "http://localhost:3002/api/todos/edit";
@@ -36,12 +51,7 @@ export const EditTodoItem = ({
         type="text"
         name="title"
         value={selectedItem.title || ""}
-        onChange={(e) =>
-          setSelectedItem((prev) => ({
-            ...prev,
-            [e.target.name]: e.target.value,
-          }))
-        }
+        onChange={(e) => onHandleChange(e)}
       />
       {error && <Error>{error}</Error>}
       <br />

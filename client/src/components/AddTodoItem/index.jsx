@@ -19,11 +19,11 @@ export const AddTodoItem = ({ updateTodoList }) => {
 
       if (response.error) {
         setError(response.error);
-      } else {
-        setError(null);
-        updateTodoList();
+        return;
       }
-      
+      setTitle("");
+      setError(null);
+      updateTodoList();
     } catch (error) {
       console.log(error.message);
     }

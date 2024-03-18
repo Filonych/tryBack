@@ -8,6 +8,7 @@ import { EditTodoItem } from "./components/EditTodoItem";
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
+  const [selectedTitle, setSelectedTitle] = useState("");
 
   const getTodoList = useGetTodoList();
 
@@ -26,6 +27,7 @@ function App() {
         todoList={todoList}
         updateTodoList={updateTodoList}
         setSelectedItem={setSelectedItem}
+        setSelectedTitle={setSelectedTitle}
       />
       <br />
 
@@ -36,8 +38,8 @@ function App() {
       <EditTodoItem
         selectedItem={selectedItem}
         setSelectedItem={setSelectedItem}
-        updateTodoList={updateTodoList}
         setTodoList={setTodoList}
+        selectedTitle={selectedTitle}
       />
     </div>
   );
