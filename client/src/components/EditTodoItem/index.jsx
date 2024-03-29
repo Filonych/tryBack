@@ -6,13 +6,16 @@ export const EditTodoItem = ({
   selectedItem,
   setSelectedItem,
   setTodoList,
-  selectedTitle,
 }) => {
   const [error, setError] = useState(null);
   const [value, setValue] = useState(null);
+  const [prevTitle, setPrevTitle] = useState(null);
   const fetchData = useFetch();
 
+  const disabled = !Object.keys(selectedItem).length;
+
   const onHandleChange = (e) => {
+    setPrevTitle(selectedItem.title);
     setSelectedItem((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -23,7 +26,7 @@ export const EditTodoItem = ({
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    if (value === selectedTitle || value === null) {
+    if (value === prevTitle) {
       setError("Измените заголовок");
       return;
     }
@@ -48,6 +51,7 @@ export const EditTodoItem = ({
   return (
     <form onSubmit={onSubmit}>
       <input
+        disabled={disabled}
         type="text"
         name="title"
         value={selectedItem.title || ""}
@@ -56,7 +60,9 @@ export const EditTodoItem = ({
       {error && <Error>{error}</Error>}
       <br />
       <br />
-      <button type="submit">Редактировать</button>
+      <button type="submit" disabled={disabled}>
+        Редактировать
+      </button>
     </form>
   );
 };

@@ -8,7 +8,6 @@ import { EditTodoItem } from "./components/EditTodoItem";
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
-  const [selectedTitle, setSelectedTitle] = useState("");
 
   const getTodoList = useGetTodoList();
 
@@ -27,19 +26,20 @@ function App() {
         todoList={todoList}
         updateTodoList={updateTodoList}
         setSelectedItem={setSelectedItem}
-        setSelectedTitle={setSelectedTitle}
       />
       <br />
 
       <h1>Добавить задачу</h1>
-      <AddTodoItem updateTodoList={updateTodoList} />
+      <AddTodoItem
+        updateTodoList={updateTodoList}
+        setSelectedItem={setSelectedItem}
+      />
       <br />
       <h1>Редактировать задачу</h1>
       <EditTodoItem
         selectedItem={selectedItem}
         setSelectedItem={setSelectedItem}
         setTodoList={setTodoList}
-        selectedTitle={selectedTitle}
       />
     </div>
   );

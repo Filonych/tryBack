@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { Error } from "../ui/Error";
 
-export const AddTodoItem = ({ updateTodoList }) => {
-  const [title, setTitle] = useState("");
+export const AddTodoItem = ({ updateTodoList, setSelectedItem }) => {
+  const [title, setTitle] = useState(null);
   const [error, setError] = useState(null);
+
+  const disabled = !title || (title && !title.trim()) ;
 
   const fetchData = useFetch();
 
@@ -21,7 +23,7 @@ export const AddTodoItem = ({ updateTodoList }) => {
         setError(response.error);
         return;
       }
-      setTitle("");
+      setTitle(null);
       setError(null);
       updateTodoList();
     } catch (error) {
@@ -33,13 +35,16 @@ export const AddTodoItem = ({ updateTodoList }) => {
     <form onSubmit={onSubmit}>
       <input
         type="text"
-        value={title}
+        value={title || ""}
         onChange={(e) => setTitle((prev) => e.target.value)}
+        onClick={() => setSelectedItem({})}
       />
       {error && <Error>{error}</Error>}
       <br />
       <br />
-      <button type="submit">Добавить</button>
+      <button type="submit" disabled={disabled}>
+        Добавить
+      </button>
     </form>
   );
 };

@@ -1,15 +1,12 @@
 import { useFetch } from "../../hooks/useFetch";
 import { Button } from "../ui/Button";
 
-export const TodoList = ({
-  todoList,
-  updateTodoList,
-  setSelectedItem,
-  setSelectedTitle,
-}) => {
+export const TodoList = ({ todoList, updateTodoList, setSelectedItem }) => {
   const fetchData = useFetch();
 
   const deleteTodo = async (title) => {
+    setSelectedItem({});
+
     try {
       const url = "http://localhost:3002/api/todos/delete";
       const method = "DELETE";
@@ -24,7 +21,6 @@ export const TodoList = ({
 
   const onClick = (todo) => {
     setSelectedItem(todo);
-    setSelectedTitle(todo.title);
   };
 
   return (
